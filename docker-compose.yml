@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   nginx-proxy:
     image: jwilder/nginx-proxy
     ports:
@@ -8,14 +9,5 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  node:
-    image: "node:latest"
-    user: "node"
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - ./app:/home/node/app
-    expose:
-      - "3000"
-    command: "npm start"
+  express-app:
+    build: ./docker-build
