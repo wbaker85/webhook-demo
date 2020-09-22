@@ -22,3 +22,7 @@ sudo chkconfig docker on
 # docker compose
 sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+
+# download from repo and run
+git clone https://github.com/wbaker85/webhook-demo.git && cd webhook-demo
+docker-compose up -d
