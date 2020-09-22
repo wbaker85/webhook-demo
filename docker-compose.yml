@@ -10,4 +10,4 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   express-app:
-    build: ./docker-build
+    build: ./
