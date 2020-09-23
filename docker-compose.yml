@@ -2,16 +2,61 @@ version: '3'
 
 services:
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
+  # nginx-proxy:
+  #   image: jwilder/nginx-proxy
+  #   restart: always
+  #   container_name: "proxy"
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  web:
+    image: nginx
+    restart: always
+    container_name: "nginx-proxy"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d/:ro
+    ports:
+    - "80:80"
 
   express-app:
     build: ./
-    ports:
-      - "3000:3000"
+    restart: always
+    container_name: "express"
+    expose:
+      - "3000"
     environment:
-      - VIRTUAL_HOST=~.
+      - PGHOST=postgres
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - PGDATABASE=postgres
+
+  postgres:
+    image: postgres
+    restart: always
+    container_name: "pg"
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  mongo:
+    restart: always
+    image: mongo
+    restart: always
+    container_name: "mongo"
+    expose:
+      - "27017"
+
+  mongoadmin:
+    restart: always
+    image: mongo-express
+    restart: always
+    container_name: "mongoadmin"
+    expose:
+      - "8081"
+    environment:
+      ME_CONFIG_SITE_BASEURL: /mongoadmin
