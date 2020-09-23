@@ -13,3 +13,4 @@ INSERT INTO testTable (val1, val2) VALUES
   ('hello', true), ('goodbye', false); -->
 
 curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X POST http://whateverurl/webhook
+
