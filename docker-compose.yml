@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-
-  # nginx-proxy:
-  #   image: jwilder/nginx-proxy
-  #   restart: always
-  #   container_name: "proxy"
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - /var/run/docker.sock:/tmp/docker.sock:ro
-
   web:
     image: nginx
     restart: always
@@ -21,7 +11,7 @@ services:
     - "80:80"
 
   express-app:
-    build: ./
+    build: ./server
     restart: always
     container_name: "express"
     expose:
@@ -31,6 +21,9 @@ services:
       - PGUSER=postgres
       - PGPASSWORD=postgres
       - PGDATABASE=postgres
+      - MONGO_URL=mongodb://mongo:27017
+      - MONGO_DB_NAME=requests
+      - MONGO_COLLECTION_NAME=events
 
   postgres:
     image: postgres
@@ -42,6 +35,9 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./dbinit/postgres:/docker-entrypoint-initdb.d/:ro
+      - ./database_files/postgres:/var/lib/postgresql/data
 
   mongo:
     restart: always
@@ -50,6 +46,11 @@ services:
     container_name: "mongo"
     expose:
       - "27017"
+    environment:
+      - MONGO_INITDB_DATABASE=requests
+    volumes:
+      - ./dbinit/mongo:/docker-entrypoint-initdb.d/:ro
+      - ./database_files/mongo:/data/db
 
   mongoadmin:
     restart: always
