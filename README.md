@@ -1,4 +1,4 @@
-docker-compose up -d
+<!-- docker-compose up -d
 
 psql -h localhost -p 5431 -d postgres -U postgres --password
 ...this will connect to the database
@@ -10,4 +10,4 @@ CREATE TABLE testTable (
 );
 
 INSERT INTO testTable (val1, val2) VALUES
-  ('hello', true), ('goodbye', false);
+  ('hello', true), ('goodbye', false); -->
