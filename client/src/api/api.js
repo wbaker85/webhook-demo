@@ -4,9 +4,6 @@ const API_URL = `http://${window.location.hostname}`;
 export default {
   async getAllEndpoints(callback) {
     let response = await fetch(`${API_URL}/endpoints`);
-
-    console.log(`${API_URL}/endpoints`);
-
     const result = response.ok ? await response.json() : null;
     callback(result);
   },
