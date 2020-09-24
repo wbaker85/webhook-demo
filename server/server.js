@@ -1,20 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const app = express();
 const port = 3000;
 
 const pgApi = require('./lib/pgApi.js');
 const mongoApi = require('./lib/mongoApi.js');
 
-
 app.use(express.static('client/build'))
 app.use(bodyParser.json())
-
-// route to the base page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
 
 // get a list of all endpoints
 app.get('/endpoints', async (req, res) => {
