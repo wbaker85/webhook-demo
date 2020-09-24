@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const app = express();
 const port = 3000;
 
 const pgApi = require('./lib/pgApi.js');
 const mongoApi = require('./lib/mongoApi.js');
 
+app.use(cors());
 app.use(express.static('client/build'))
 app.use(bodyParser.json())
 
