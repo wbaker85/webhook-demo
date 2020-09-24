@@ -61,3 +61,8 @@ services:
       - "8081"
     environment:
       ME_CONFIG_SITE_BASEURL: /mongoadmin
+
+  client-app:
+    build: ./client
+    restart: always
+    container_name: "client"
