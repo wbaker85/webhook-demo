@@ -1,4 +1,3 @@
-// const API_URL = `http://ec2-54-88-167-227.compute-1.amazonaws.com`;
 const API_URL = `http://${window.location.hostname}`;
 
 export default {
